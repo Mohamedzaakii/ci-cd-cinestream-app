@@ -1,0 +1,60 @@
+name: CI-CD Cinestream
+on: 
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: RUN Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: "fs"
+          severity: "HIGH,CRITICAL"
+          ignore-unfixed: true
+  build:
+    runs-on: ubuntu-latest
+    needs: security-scan  
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install Docker Compose 
+        run: | 
+              curl -L "https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose
+               chmod +x /usr/local/bin/docker-compose  
+
+      - name: Build images
+        run: docker-compose build
+      
+      - name: Test Services 
+        run: |
+              docker-compose up -d
+              docker-compose ps
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: Deploy to AWS EC2 Using Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init & Apply
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+              cd terraform
+              terraform init
+              terraform apply -auto-approve -var="repo_url=https://github.com/${{ github.repository }}.git"
