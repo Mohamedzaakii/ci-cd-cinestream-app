@@ -52,7 +52,7 @@ ci-cd-cinestream-app/
 ├── docker-compose.yml
 └── README.md
 └── .gitignore
-├── docs/
+└── docs/
   ├── app.png
   ├── backend-api.png
   ├── docker-build.png
