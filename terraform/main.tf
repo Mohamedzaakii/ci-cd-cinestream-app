@@ -57,14 +57,12 @@ resource "aws_instance" "app" {
               systemctl start docker
               systemctl enable docker
               usermod -aG docker ec2-user
-              curl -L "https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-              chmod +x /usr/local/bin/docker-compose
-              ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+              dnf install -y docker-compose-plugin
               dnf install -y git
               cd /home/ec2-user
               git clone https://github.com/Mohamedzaakii/ci-cd-cinestream-app.git
               cd ci-cd-cinestream-app
-              docker-compose up -d --build
+              docker compose up -d --build
               EOF
 }
                
