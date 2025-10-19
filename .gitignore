@@ -5,6 +5,7 @@
 *.tfvars
 .terraform.lock.hcl
 
+
 # Docker
 node_modules/
 dist/
@@ -15,6 +16,9 @@ build/
 # OS
 .DS_Store
 Thumbs.db
+
+# packages
+package-lock.json
 
 # IDE
 .vscode/
@@ -31,3 +35,4 @@ yarn-error.log*
 # SSH keys (never commit private keys!)
 id_rsa
 *.pem
+id_rsa.pub
