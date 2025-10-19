@@ -1,4 +1,4 @@
-# 🎬 Cinestream - Complete CI/CD
+# 🎬 **Cinestream** - End-to-End GitHub Actions Pipeline
 ![Terraform](https://img.shields.io/badge/IaC-Terraform-623CE4?logo=terraform)
 ![AWS](https://img.shields.io/badge/Cloud-AWS-FF9900?logo=amazonaws)
 ![Docker](https://img.shields.io/badge/Container-Docker-2496ED?logo=docker)
@@ -7,9 +7,12 @@
 ![Trivy](https://img.shields.io/badge/Security-Trivy-1904DA?logo=aquasec)
 
 ## 🚀 Project Overview
-A full-stack movie application with automated CI/CD pipeline deploying to AWS EC2 using Terraform, Docker, and GitHub Actions. Cinestream demonstrates a complete DevOps workflow with infrastructure as code, containerization, security scanning, and automated deployments.
+A cloud-native deployment platform with automated CI/CD pipeline deploying to AWS EC2 using Terraform, Docker, and GitHub Actions. Cinestream demonstrates a complete DevOps workflow with infrastructure as code, containerization, security scanning, and automated deployments.
 
-## 🏗️ Architecture
+
+## 📊 System Architecture
+![Architecture Diagram](docs/architecture.png)
+
 ### Infrastructure
 - **AWS EC2** - Application hosting
 - **Terraform** - Infrastructure as Code
@@ -49,6 +52,18 @@ ci-cd-cinestream-app/
 ├── docker-compose.yml
 └── README.md
 └── .gitignore
+├── docs/
+  ├── app.png
+  ├── backend-api.png
+  ├── docker-build.png
+  ├── docker-ps.png
+  ├── ec2-instance.png
+  ├── security-groups.png
+  ├── slack-success.png
+  ├── terraform-apply.png
+  ├── trivy-scan.png
+  ├── workflow.png
+  └── architecture.png
 ```
 ## 🔧 Technologies Used
 - **Infrastructure**: Terraform, AWS EC2
@@ -81,21 +96,30 @@ ci-cd-cinestream-app/
 ## 📸 Screenshots
 
 ### Infrastructure
-![Terraform-apply](docs/terraform-apply.png)
+Running-EC2
+
 ![EC2 Instance](docs/ec2-instance.png)
-![Security Groups](docs/security-groups.png)
+
 
 ### CI/CD Pipeline
+#### Workflow
+
 ![Workflow](docs/workflow.png)
+
+#### Security-Scan
+
 ![Security Scan](docs/trivy-scan.png)
-![Docker Build](docs/docker-build.png)
 
 ### Application
-![Running Containers](docs/docker-ps.png)
+
+#### Cinestream-App
+
 ![Frontend](docs/app.png)
-![Backend API](docs/backend-api.png)
 
 ### Notifications
+
+#### Slack-Success
+
 ![Slack Success](docs/slack-success.png)
 
 ## 🔄 Workflow Details
