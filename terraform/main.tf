@@ -52,18 +52,19 @@ resource "aws_instance" "app" {
   }
   user_data = <<EOF
               #!/bin/bash
-              sudo dnf update -y
-              sudo dnf install -y docker
-              sudo systemctl start docker
-              sudo systemctl enable docker
-              sudo usermod -aG docker ec2-user  
-              sudo curl -L "https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose
-              sudo chmod +x /usr/local/bin/docker-compose
+              dnf update -y
+              dnf install -y docker
+              systemctl start docker
+              systemctl enable docker
+              usermod -aG docker ec2-user
+              curl -L "https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+              chmod +x /usr/local/bin/docker-compose
+              ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+              dnf install -y git
               cd /home/ec2-user
-              sudo dnf install -y git
-              git clone ${var.repo_url}
+              git clone https://github.com/Mohamedzaakii/ci-cd-cinestream-app.git
               cd ci-cd-cinestream-app
-              sudo docker-compose up -d --build 
+              docker-compose up -d --build
               EOF
 }
                
